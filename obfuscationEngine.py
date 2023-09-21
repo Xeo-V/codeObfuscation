@@ -1,3 +1,6 @@
+import random
+import re
+
 def display_progress_bar(percentage_done):
     total_chars = 20
     done_chars = int(total_chars * percentage_done / 100)
