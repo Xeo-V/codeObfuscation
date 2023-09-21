@@ -1,13 +1,9 @@
-import random
-import re
-
 def display_progress_bar(percentage_done):
     total_chars = 20
     done_chars = int(total_chars * percentage_done / 100)
     remaining_chars = total_chars - done_chars
     progress_bar = '[' + '/' * done_chars + '-' * remaining_chars + ']'
     print(progress_bar, f"{percentage_done}%")
-
 
 def obfuscate_file_with_progress(filename, mode='manual'):
     print("Starting obfuscation...")
@@ -26,6 +22,9 @@ def obfuscate_file_with_progress(filename, mode='manual'):
         file.write(obfuscated_content)
     display_progress_bar(100)
     print(f"Obfuscated file saved as {filename.replace('.py', '_obfuscated.py')}")
+
+import random
+import re
 
 def obfuscate_manual(content):
     content = re.sub(r'(\w+)', lambda x: x.group(1)[::-1], content)
@@ -57,9 +56,12 @@ def obfuscate_with_underscores(content):
     words = words - exclude_set
 
     obfuscated_words = {}
-    for idx, word in enumerate(sorted(list(words))):
-        obfuscated_word = '_' * (3 + idx)
-        obfuscated_words[word] = obfuscated_word
+    idx = 0
+    for word in words:
+        if word not in obfuscated_words:
+            obfuscated_word = '_' * (3 + idx)
+            obfuscated_words[word] = obfuscated_word
+            idx += 1
 
     for original, obfuscated in obfuscated_words.items():
         content = content.replace(original, obfuscated)
